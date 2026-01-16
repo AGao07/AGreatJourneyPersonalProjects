@@ -1,52 +1,62 @@
-const categories = [
+let categories = [
   {
     name: "Table Tennis",
     questions: [
-      { value: 100 },
-      { value: 200 },
-      { value: 300 },
-      { value: 400 },
-      { value: 500 }
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
+    ]
+  },
+ {
+    name: "Table Tennis",
+    questions: [
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
+    ]
+  },
+ {
+    name: "Table Tennis",
+    questions: [
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
+    ]
+  },
+ {
+    name: "Table Tennis",
+    questions: [
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
     ]
   },
   {
     name: "Table Tennis",
     questions: [
-      { value: 100 },
-      { value: 200 },
-      { value: 300 },
-      { value: 400 },
-      { value: 500 }
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
     ]
   },
-  {
+ {
     name: "Table Tennis",
     questions: [
-      { value: 100 },
-      { value: 200 },
-      { value: 300 },
-      { value: 400 },
-      { value: 500 }
-    ]
-  },
-  {
-    name: "Table Tennis",
-    questions: [
-      { value: 100 },
-      { value: 200 },
-      { value: 300 },
-      { value: 400 },
-      { value: 500 }
-    ]
-  },
-  {
-    name: "Rules",
-    questions: [
-      { value: 100 },
-      { value: 200 },
-      { value: 300 },
-      { value: 400 },
-      { value: 500 }
+      { q:"a", value: 100 },
+      { q:"b", value: 200 },
+      { q:"c", value: 300 },
+      { q:"d", value: 400 },
+      { q:"e", value: 500 }
     ]
   }
 ];
@@ -70,18 +80,22 @@ function buildBoard() {
       const cell = document.createElement("div");
       cell.className = "cell";
       cell.textContent = `$${cat.questions[i].value}`;
-      cell.onclick = () => selectQuestion(cell, cat.questions[i].value);
+      cell.onclick = () => selectQuestion(cell, cat.questions[i]);
       board.appendChild(cell);
     });
   }
 }
 
-function selectQuestion(cell, value) {
-  currentValue = value;
-  currentValueEl.textContent = value;
+function selectQuestion(cell, question) {
+  currentValue = question.value;
+  currentValueEl.textContent = question.value;
+
+  alert(question.q); // or modal later
+
   cell.textContent = "";
   cell.onclick = null;
 }
+
 
 const playersDiv = document.getElementById("players");
 
@@ -130,12 +144,19 @@ function loadGame(event) {
   reader.onload = e => {
     try {
       const data = JSON.parse(e.target.result);
+
+      if (!Array.isArray(data.categories)) {
+        throw new Error("Invalid format");
+      }
+
       categories = data.categories;
       resetBoard();
-    } catch {
+    } catch (err) {
       alert("Invalid JSON file");
+      console.error(err);
     }
   };
+
   reader.readAsText(file);
 }
 
