@@ -1,0 +1,43 @@
+body {
+  background: #060ce9;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+  margin: 20px;
+}
+
+.category, .cell {
+  background: #00008b;
+  padding: 15px;
+  border: 2px solid gold;
+  cursor: pointer;
+}
+
+.category {
+  font-weight: bold;
+}
+
+.cell:hover {
+  background: #1e90ff;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.7);
+}
+
+.modal-content {
+  background: black;
+  margin: 15% auto;
+  padding: 20px;
+  width: 50%;
+}
