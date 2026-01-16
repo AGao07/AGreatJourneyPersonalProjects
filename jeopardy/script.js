@@ -122,4 +122,28 @@ function updateScore(playerIndex, direction) {
   renderPlayers();
 }
 
+function loadGame(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      categories = data.categories;
+      resetBoard();
+    } catch {
+      alert("Invalid JSON file");
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetBoard() {
+  board.innerHTML = "";
+  currentValue = 0;
+  currentValueEl.textContent = "0";
+  buildBoard();
+}
+
 buildBoard();
