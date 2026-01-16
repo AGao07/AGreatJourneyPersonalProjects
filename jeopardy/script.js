@@ -1,3 +1,7 @@
+const modal = document.getElementById("modal");
+const modalQuestion = document.getElementById("modalQuestion");
+const modalCategory = document.getElementById("modalCategory");
+
 let categories = [
   {
     name: "Table Tennis",
@@ -80,22 +84,28 @@ function buildBoard() {
       const cell = document.createElement("div");
       cell.className = "cell";
       cell.textContent = `$${cat.questions[i].value}`;
-      cell.onclick = () => selectQuestion(cell, cat.questions[i]);
+      cell.onclick = () => selectQuestion(cell, cat, cat.questions[i]);
       board.appendChild(cell);
     });
   }
 }
 
-function selectQuestion(cell, question) {
+function selectQuestion(cell, category, question) {
   currentValue = question.value;
   currentValueEl.textContent = question.value;
 
-  alert(question.q); // or modal later
+  modalCategory.textContent = category.name;
+  modalQuestion.textContent = question.q;
+
+  modal.style.display = "block";
 
   cell.textContent = "";
   cell.onclick = null;
 }
 
+function closeModal() {
+  modal.style.display = "none";
+}
 
 const playersDiv = document.getElementById("players");
 
